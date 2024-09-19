@@ -9,6 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 @NgModule({
   exports:[
@@ -21,7 +24,12 @@ import {MatListModule} from '@angular/material/list';
     MatFormFieldModule,
     MatNativeDateModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule,
+    MatCheckboxModule
   ]
+  
 })
+
+
 export class AppMaterialModule { }

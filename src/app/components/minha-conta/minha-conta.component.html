@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="container_info">
+        <div class="content-info">
+            <div class="destaque">Nome</div>
+            <div class="info">{{barbeiro.nome}}</div>
+            
+        </div>
+        <div class="content-info">
+            <div class="destaque">E-mail</div>
+            <div class="info">{{barbeiro.email}}</div>
+        </div>
+    </div>
+    <hr style="width: 100%;">
+    <h1 style="margin-bottom: 20px ; margin-top: 10px; font-weight: 500;">Dias Trabalhados</h1>
+    <div class="container_dias_trabalho">
+        <mat-accordion [multi]="false">
+            <mat-expansion-panel style="margin: 5px 0px; " *ngFor="let diaTrabalho of barbeiro.dias_trabalho" hideToggle>
+              <mat-expansion-panel-header [ngClass]="{'container_success': diaTrabalho.trabalha, 'container_error': !diaTrabalho.trabalha}">
+                <mat-panel-title> 
+                  <div class="title_acordion">
+                    <div>{{ dias_semana[diaTrabalho.dia_da_semana.valueOf()] }} </div>
+                    <div>
+                      <mat-icon *ngIf="diaTrabalho.trabalha" class="icone-confirmado">done</mat-icon>
+                      <mat-icon *ngIf="!diaTrabalho.trabalha" class="icone-nao-confirmado">close</mat-icon>
+                    </div>
+                  </div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div style="border-left: 1px solid green;">
+                <div class="container_checkbox">
+                  <section class="example-section">
+                    <mat-checkbox [checked]="diaTrabalho.trabalha" color="primary">Trabalha</mat-checkbox>
+                  </section>
+                </div>
+
+                <div class="container_input">
+                  <mat-form-field class="input_text">
+                    <mat-label>Horario Inical</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+                  <mat-form-field class="input_text">
+                    <mat-label>Horario Final</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+                </div>
+                <div class="container_input">
+                  <mat-form-field class="input_text">
+                    <mat-label>Horario de Almoço</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+                  <mat-form-field class="input_text">
+                    <mat-label>Tempo de Almoço</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+                </div>
+
+                <div class="container_btn">
+                  <div class="example-button-row">
+                    <button mat-flat-button color="primary">Salvar</button>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>            
+          </mat-accordion>                    
+    </div>
+</div>

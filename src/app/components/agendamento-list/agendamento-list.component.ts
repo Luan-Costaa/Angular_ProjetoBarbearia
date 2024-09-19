@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DateAdapter, MatNativeDateModule } from '@angular/material/core';
+import { BarbeiroService } from 'src/app/services/barbeiro.service';
 
 
 @Component({
@@ -14,9 +15,16 @@ export class AgendamentoListComponent {
 
   //dayOfWeek: string | null = null;
 
-  constructor(private dateAdapter: DateAdapter<Date>) {
+  constructor(
+    private dateAdapter: DateAdapter<Date>,
+    private barbeiroService: BarbeiroService
+  ) {
+
     this.dateAdapter.setLocale('pt-BR');
-    this.diaSemana = this.diasDaSemana[this.dataAgenda.getDay()]  }
+    this.diaSemana = this.diasDaSemana[this.dataAgenda.getDay()]
+    
+    console.log(barbeiroService.build_barbeiro_test())
+  }
 
   updateDayOfWeek(data: Date) {
     this.dataAgenda = data;

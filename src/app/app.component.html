@@ -3,22 +3,23 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
+    <button  routerLink="agendamentos" mat-menu-item (click)="alterarTituloToolbar('Agendamento')">
+      <mat-icon style="color: blue;">calendar_month</mat-icon>
+      <span>Agenda</span>
+    </button>
     <button mat-menu-item (click)="alterarTituloToolbar('Servicos')">
       <mat-icon>content_cut</mat-icon>
       <span>Servicos</span>
     </button>
-    <button mat-menu-item (click)="alterarTituloToolbar('Clientes')">
-      <mat-icon>groups</mat-icon>
-      <span>Clientes</span>
+    <button mat-menu-item (click)="alterarTituloToolbar('Cortes Fixos')">
+      <mat-icon style="color: green;">event_available</mat-icon>
+      <span>Cortes Fixos</span>
     </button>
-    <button mat-menu-item (click)="alterarTituloToolbar('Cabeleireiros')">
-      <mat-icon>person</mat-icon>
-      <span>Cabeleireiros</span>
+    <button mat-menu-item  routerLink="minha-conta" (click)="alterarTituloToolbar('Meu Perfil')">
+      <mat-icon style="color: blue;">person</mat-icon>
+      <span>Meu Perfil</span>
     </button>
-    <button  routerLink="agendamentos" mat-menu-item (click)="alterarTituloToolbar('Agendamento')">
-      <mat-icon>calendar_month</mat-icon>
-      <span>Agendamentos</span>
-    </button>
+    
 
   </mat-menu>
   <span routerLink="/">{{titulo}}</span>

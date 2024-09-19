@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BarbeiroService } from './services/barbeiro.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'BarbeariaFront';
   titulo = "Agendamentos";
+
+  constructor(private barbeiroService: BarbeiroService){
+   
+  }
 
   alterarTituloToolbar(titulo: string){
     this.titulo = titulo;

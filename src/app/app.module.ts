@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppMaterialModule } from './material/app-material/app-material.module';
 import { AgendamentoListComponent } from './components/agendamento-list/agendamento-list.component';
+import { MinhaContaComponent } from './components/minha-conta/minha-conta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AgendamentoListComponent
+    AgendamentoListComponent,
+    MinhaContaComponent
   ],
   imports: [
     BrowserModule,
