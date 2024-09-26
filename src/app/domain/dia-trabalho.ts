@@ -10,4 +10,5 @@ export class DiaTrabalho {
     duracao_almoco: Number | null = null
     
     constructor(){}
+
 }

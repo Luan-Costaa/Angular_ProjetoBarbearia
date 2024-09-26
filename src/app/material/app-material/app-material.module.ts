@@ -11,6 +11,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatCardModule,
     MatListModule,
     MatExpansionModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ]
   
 })
