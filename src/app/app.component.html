@@ -7,13 +7,13 @@
       <mat-icon style="color: blue;">calendar_month</mat-icon>
       <span>Agenda</span>
     </button>
-    <button mat-menu-item (click)="alterarTituloToolbar('Servicos')">
+    <button routerLink="servicos" mat-menu-item (click)="alterarTituloToolbar('Servicos')">
       <mat-icon>content_cut</mat-icon>
       <span>Servicos</span>
     </button>
-    <button mat-menu-item (click)="alterarTituloToolbar('Cortes Fixos')">
+    <button routerLink="cortes-fixos" mat-menu-item (click)="alterarTituloToolbar('Cortes Fixos')">
       <mat-icon style="color: green;">event_available</mat-icon>
-      <span>Cortes Fixos</span>
+      <span >Cortes Fixos</span>
     </button>
     <button mat-menu-item  routerLink="minha-conta" (click)="alterarTituloToolbar('Meu Perfil')">
       <mat-icon style="color: blue;">person</mat-icon>

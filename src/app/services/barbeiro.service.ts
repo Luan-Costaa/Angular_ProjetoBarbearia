@@ -3,15 +3,22 @@ import { Barbeiro } from '../domain/barbeiro';
 import { AgendamentoFixo } from '../domain/agendamento-fixo';
 import { DiaTrabalho } from '../domain/dia-trabalho';
 import { Servico } from '../domain/servico';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BarbeiroService {
 
-  constructor() { }
+  constructor(private http: HttpClient,
+    private snackBar: MatSnackBar
+  ) { }
+  baseAPIUrl = "http://localhost:8080";
 
   barbeiro = new Barbeiro()
+  servicos:  Array<Servico> = []
   is_created = false
 
   build_barbeiro_test(){
@@ -58,8 +65,19 @@ export class BarbeiroService {
     
   }
 
+  
+
   get_barbeiro(){
     return this.barbeiro
+  }
+
+  get_agendamentos_por_dia_da_semana(dia_da_semana: Number): Array<AgendamentoFixo>{
+    let agendamentos : Array<AgendamentoFixo> = this.barbeiro.agendamentos_fixos
+
+    const agendaFiltrada = agendamentos.filter(agendamento => agendamento.dia_da_semana === dia_da_semana);
+
+    return agendaFiltrada
+
   }
 
   update_dia_trabalhado(id_barbeiro: Number | null, diaTrabalho : DiaTrabalho){
@@ -69,4 +87,43 @@ export class BarbeiroService {
       }
     }
   }
+
+  getServicos(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Se necessário, adicione cabeçalhos adicionais, como autenticação
+      // 'Authorization': 'Bearer YOUR_TOKEN'
+    });
+
+    return this.http.get<any[]>(this.baseAPIUrl + '/servico', { headers });
+  }
+
+  save_servico(servico: any) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.post(this.baseAPIUrl + '/servico', servico, { headers })
+      .subscribe({
+        next: (response) => {
+          this.mostrarMensagem('Serviço salvo com sucesso!', 'success');
+        },
+        error: (err) => {
+          const erroMsg = 'Erro ao salvar o serviço: ' + (err.message || 'Erro desconhecido');
+          this.mostrarMensagem(erroMsg, 'error');
+        }
+      });
+  }
+
+  
+  mostrarMensagem(msg: string, type: string) {
+    const snackBarClass = type === 'success' ? 'snack-bar-success' : 'snack-bar-error';
+
+    this.snackBar.open(msg, 'Fechar', {
+      duration: 2000, // duração em ms (3 segundos)
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      panelClass: [snackBarClass] // aplica a classe CSS baseada no tipo
+    });
+  }
+
+
 }

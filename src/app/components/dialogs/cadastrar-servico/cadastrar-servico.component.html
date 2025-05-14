@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Cadastro de Serviço</h2>
+<mat-dialog-content>
+  <form [formGroup]="formServico" class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome do Serviço</mat-label>
+      <input matInput formControlName="nome" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Valor (R$)</mat-label>
+      <input matInput type="number" formControlName="valor" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Tempo (minutos)</mat-label>
+      <input matInput type="number" formControlName="tempoServico" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formServico.invalid">
+    Salvar
+  </button>
+</mat-dialog-actions>

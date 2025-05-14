@@ -21,13 +21,13 @@
         </mat-form-field>
         <mat-form-field class="input_text">
           <mat-label>Horario Final</mat-label>
-          <input matInput [formControl]="horarioFinalFormControl"  >
+          <input matInput mask="00:00" [formControl]="horarioFinalFormControl"  placeholder="HH:MM">
         </mat-form-field>
       </div>
       <div class="container_input">
         <mat-form-field class="input_text">
           <mat-label>Horario de Almoço</mat-label>
-          <input matInput [formControl]="horarioAlmocoFormControl" >
+          <input matInput mask="00:00" [formControl]="horarioAlmocoFormControl" placeholder="HH:MM">
         </mat-form-field>
         <mat-form-field class="input_text">
           <mat-label>Tempo de Almoço</mat-label>

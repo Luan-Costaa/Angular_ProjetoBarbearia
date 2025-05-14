@@ -1,7 +1,8 @@
 import { Time } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Route, Router } from '@angular/router';
 import { DiaTrabalho } from 'src/app/domain/dia-trabalho';
 import { BarbeiroService } from 'src/app/services/barbeiro.service';
 
@@ -33,7 +34,8 @@ export class AlterarDiaTrabalhadoComponent {
 
   constructor( 
     @Inject(MAT_DIALOG_DATA) public data: Array<any>,
-    private barbeiroService: BarbeiroService
+    private barbeiroService: BarbeiroService,
+    private dialogRef: MatDialogRef<AlterarDiaTrabalhadoComponent>
   ){
     this.id_barbeiro = Number(data[0])
     this.diaTrabalho = data[1]
@@ -78,6 +80,8 @@ export class AlterarDiaTrabalhadoComponent {
     this.diaTrabalho.duracao_almoco =  Number(this.duracaoAlmocoFormControl.value)
 
     this.barbeiroService.update_dia_trabalhado(this.id_barbeiro, this.diaTrabalho)
+
+    this.dialogRef.close();
 
   }
 

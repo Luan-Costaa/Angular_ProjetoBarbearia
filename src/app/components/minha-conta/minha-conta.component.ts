@@ -71,9 +71,9 @@ export class MinhaContaComponent {
 
     // Ouvir o fechamento do diálogo
     dialogRef.afterClosed().subscribe(result => {
-      if (result === true) { // Se o botão "Visualizar" foi clicado
-        this.router.navigate(['/minha-conta']); // Redirecionar para /agendamentos
-      }
+
+      this.router.navigate(['/minha-conta']); 
+  
     });
   }
 }

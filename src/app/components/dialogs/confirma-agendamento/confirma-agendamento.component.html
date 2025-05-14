@@ -1,0 +1,47 @@
+<div class="dialog-container">
+    <h2 mat-dialog-title>Confirmar Agendamento</h2>
+    <mat-dialog-content class="mat-typography">
+      <div class="content-container">
+        <div class="container_content_intern">
+          <h2><span class="destaque">Barbeiro: </span> teste</h2>
+        </div>
+        <div class="container_content_intern">
+          <div class="column-intern">
+              <div class="container-dia-da-semana sub_title destaque">{{dataSemana}}</div>
+              <div class="container-data-agendanda">{{dataFormatada}}</div>
+          </div>
+          <div class="column-intern">
+            <div class="destaque sub_title">Horário</div>
+            <div class="container-hora">{{data.horario}}</div>
+          </div>
+        </div>
+  
+        <div class="container_content_intern">
+          <div class="column-intern">
+            <div class="destaque sub_title">Valor Total</div>
+            <div>R$ {{data.total}},00</div>
+          </div>
+          <div class="column-intern ">
+            <div class="sub_title destaque">
+              Tempo Total
+            </div>
+            <div class="container_time">
+              <mat-icon style="margin-right: 3px;">schedule</mat-icon> 
+              <div style="font-weight: lighter; margin-top: 2px;">0{{data.tempo}} hrs</div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="container_content_intern" style="margin-top: 10px;">
+          <div><span class="destaque">Tel: </span> {{telFormatado}} </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="false" cdkFocusInitial (click)="confirmarAgendamento()">
+        Confirmar
+      </button>
+    </mat-dialog-actions>
+  </div>
+  

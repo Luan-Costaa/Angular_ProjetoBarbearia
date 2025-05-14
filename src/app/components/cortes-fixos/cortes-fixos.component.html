@@ -1,0 +1,78 @@
+<div class="containerSuperior">
+  <mat-form-field>
+    <mat-label>Dia da Semana</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let diaSemana of diasDaSemana; let i = index" [value]="diaSemana" (click)="consultar_agendamento_por_data(i)">
+        {{ diaSemana }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>
+    <button mat-flat-button color="primary" style="margin-top: -15px; padding: 20px;" (click)="openDialog()">Incluir Corte Fixo</button>
+  </div>
+</div>
+  
+  <div class="containerInferior">
+    <div class="msg_info" *ngIf="agendamentos_fixos.length == 0">
+      Sem agendamentos fixos para este dia.
+    </div>
+    <mat-card *ngFor="let agendamento of agendamentos_fixos">
+      <mat-card-content>
+        <h3>{{format_time(agendamento.horario)}} - {{agendamento.nome_cliente}}</h3>
+  
+        <div>
+          <button mat-icon-button [matMenuTriggerFor]="menuSuperior">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menuSuperior="matMenu">
+            <button mat-menu-item>
+              <mat-icon  class="icone-confirmar">done</mat-icon>
+              <span>Concluir</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon class="icone-agendar">calendar_month</mat-icon>
+              <span>Reagendar</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon  class="icone-cancelar">close</mat-icon>
+              <span>Cancelar</span>
+            </button>
+          </mat-menu>
+        </div>
+      </mat-card-content>
+      <div class="containerInfoCardAgendamento">
+        <div class="container-info">
+          <div class="containerListServiosAgendados" >
+            <div *ngFor="let servico of agendamento.servicos">
+              <mat-icon>content_cut</mat-icon>
+              <span>{{servico.nome}}</span>
+            </div>
+          </div>
+  
+          <div class="containerListServiosAgendados time-money">
+            <div>
+              <mat-icon>schedule</mat-icon>
+              <span>{{agendamento.tempo}} min</span>
+            </div>
+            <div>
+              <mat-icon>attach_money</mat-icon>
+              <span>{{agendamento.total}},00</span>
+            </div>
+          </div>
+        </div>
+  
+        <div>
+          <div>
+            <div class="example-button-container">
+              <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                <mat-icon>call</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  
+  
+  </div>
+  
