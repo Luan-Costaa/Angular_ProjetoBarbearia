@@ -8,10 +8,10 @@
   </mat-form-field>
 </div>
 
-<div class="containerInferior">
+<div class="containerInferior" *ngFor="let agendamento of agendamentos | async">
   <mat-card>
     <mat-card-content>
-      <h3>11:40 - Luan Medeiros da Costa</h3>
+      <h3>{{format_horario(agendamento.horaAgendamento)}} - {{agendamento.nomeCliente}}</h3>
 
       <div>
         <button mat-icon-button [matMenuTriggerFor]="menuSuperior" aria-label="Example icon-button with a menu">
@@ -35,25 +35,21 @@
     </mat-card-content>
     <div class="containerInfoCardAgendamento">
       <div class="container-info">
-        <div class="containerListServiosAgendados">
-          <div>
+        <div class="containerListServiosAgendados" >
+          <div *ngFor="let servico of agendamento.servicos">
             <mat-icon>content_cut</mat-icon>
-            <span>Cabelo</span>
-          </div>
-          <div>
-            <mat-icon>content_cut</mat-icon>
-            <span>Barba</span>
+            <span>{{servico.nome}}</span>
           </div>
         </div>
 
         <div class="containerListServiosAgendados time-money">
           <div>
             <mat-icon>schedule</mat-icon>
-            <span>35 min</span>
+            <span>{{agendamento.tempoServico}} min</span>
           </div>
           <div>
             <mat-icon>attach_money</mat-icon>
-            <span>59,90</span>
+            <span>{{agendamento.valor}},00</span>
           </div>
         </div>
       </div>

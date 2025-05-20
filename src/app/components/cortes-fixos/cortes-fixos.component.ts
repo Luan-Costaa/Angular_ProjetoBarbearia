@@ -8,6 +8,7 @@ import { BarbeiroService } from 'src/app/services/barbeiro.service';
 import { IncluirCorteFixoComponent } from '../dialogs/incluir-corte-fixo/incluir-corte-fixo.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Horario } from 'src/app/domain/horario';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cortes-fixos',
@@ -19,7 +20,7 @@ export class CortesFixosComponent {
   diasDaSemana = [ "Domingo", "Segunda Feira", "Terça feira", "Quarta Feira", "Quinta Feira", "Sexta Feira", "Sabado"]
   diaSemana: string;
 
-  barebeiro :Barbeiro;
+  barebeiro :Observable<any>;
 
   agendamentos_fixos: Array<AgendamentoFixo>;
 
@@ -34,9 +35,9 @@ export class CortesFixosComponent {
 
     console.log(barbeiroService.build_barbeiro_test())
 
-    this.barebeiro = this.barbeiroService.get_barbeiro()
+    this.barebeiro = this.barbeiroService.getBarbeiro()
 
-    this.agendamentos_fixos = this.barebeiro.agendamentos_fixos
+    this.agendamentos_fixos = [] //this.barebeiro.agendamentos_fixos
     
     
   }
@@ -53,7 +54,7 @@ export class CortesFixosComponent {
   }
 
   consultar_agendamento_por_data(dia_semana: Number){
-    this.agendamentos_fixos = this.barbeiroService.get_agendamentos_por_dia_da_semana(dia_semana)
+    this.agendamentos_fixos = [] //this.barbeiroService.get_agendamentos_por_dia_da_semana()
   }
 
   openDialog(): void {

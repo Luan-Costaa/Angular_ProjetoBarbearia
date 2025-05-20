@@ -67,16 +67,26 @@ export class BarbeiroService {
 
   
 
-  get_barbeiro(){
-    return this.barbeiro
+  getBarbeiro(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      // 'Authorization': 'Bearer YOUR_TOKEN' // se necessário
+    });
+
+    return this.http.get<any>(`${this.baseAPIUrl}/barbeiro/7`, { headers });
   }
 
-  get_agendamentos_por_dia_da_semana(dia_da_semana: Number): Array<AgendamentoFixo>{
-    let agendamentos : Array<AgendamentoFixo> = this.barbeiro.agendamentos_fixos
+  get_agendamentos_por_dia_da_semana(): Observable<any[]>{
 
-    const agendaFiltrada = agendamentos.filter(agendamento => agendamento.dia_da_semana === dia_da_semana);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Se necessário, adicione cabeçalhos adicionais, como autenticação
+      // 'Authorization': 'Bearer YOUR_TOKEN'
+    });
 
-    return agendaFiltrada
+    console.log(this.baseAPIUrl + '/agendamentos')
+
+    return this.http.get<any[]>(this.baseAPIUrl + "/agendamentos", { headers });
 
   }
 

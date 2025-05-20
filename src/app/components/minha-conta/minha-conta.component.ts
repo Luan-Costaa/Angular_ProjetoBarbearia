@@ -6,6 +6,7 @@ import { BarbeiroService } from 'src/app/services/barbeiro.service';
 import { AlterarDiaTrabalhadoComponent } from '../dialogs/alterar-dia-trabalhado/alterar-dia-trabalhado.component';
 import { Router } from '@angular/router';
 import { DiaTrabalho } from 'src/app/domain/dia-trabalho';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-minha-conta',
@@ -14,7 +15,7 @@ import { DiaTrabalho } from 'src/app/domain/dia-trabalho';
 })
 export class MinhaContaComponent {
 
-  barbeiro: Barbeiro = new Barbeiro()
+  barbeiro: Observable<any>; // ✅ Sufixo $ para indicar que é Observable
 
   dias_semana: string[] = [
     "Domingo",
@@ -26,13 +27,14 @@ export class MinhaContaComponent {
     "Sábado",
   ];
 
-  constructor(private barbeiroService: BarbeiroService,
+  constructor(
+    private barbeiroService: BarbeiroService,
     private dialog: MatDialog,
     private router: Router
-  ){
-    barbeiroService.build_barbeiro_test()
-    this.barbeiro = barbeiroService.get_barbeiro()
+  ) {
+    this.barbeiro = this.barbeiroService.getBarbeiro();
   }
+
 
   get_format_horario(horario : Time | null){
 
@@ -53,27 +55,27 @@ export class MinhaContaComponent {
   }
 
   alterarDiaTrabalho(id_dia: Number | null){
-
-    var id_barbeiro = this.barbeiro.id
-
-    var dia_trabalho: DiaTrabalho = this.barbeiro.dias_trabalho.filter(
-      (dia) => dia.id == id_dia
-    )[0]
-    
-    const dialogRef = this.dialog.open(AlterarDiaTrabalhadoComponent, {
-      width: '100vw',
-      maxWidth: '430px',
-      //height: '100vh',
-      maxHeight: '100vh',
-      panelClass: 'full-screen-dialog',
-      data: [id_barbeiro , dia_trabalho ],
-    })
-
-    // Ouvir o fechamento do diálogo
-    dialogRef.afterClosed().subscribe(result => {
-
-      this.router.navigate(['/minha-conta']); 
-  
-    });
+    alert('teste')
+    //var id_barbeiro = this.barbeiro.id
+//
+    //var dia_trabalho: DiaTrabalho = this.barbeiro.dias_trabalho.filter(
+    //  (dia) => dia.id == id_dia
+    //)[0]
+    //
+    //const dialogRef = this.dialog.open(AlterarDiaTrabalhadoComponent, {
+    //  width: '100vw',
+    //  maxWidth: '430px',
+    //  //height: '100vh',
+    //  maxHeight: '100vh',
+    //  panelClass: 'full-screen-dialog',
+    //  data: [id_barbeiro , dia_trabalho ],
+    //})
+//
+    //// Ouvir o fechamento do diálogo
+    //dialogRef.afterClosed().subscribe(result => {
+//
+    //  this.router.navigate(['/minha-conta']); 
+  //
+    //});
   }
 }

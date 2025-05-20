@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="barbeiro | async as barbeiro">
     <div class="container_info">
         <div class="content-info">
             <div class="destaque">Nome</div>
@@ -14,11 +14,11 @@
     <h1 style="margin-bottom: 20px ; margin-top: 10px; font-weight: 500;">Dias Trabalhados</h1>
     <div class="container_dias_trabalho">
         <mat-accordion [multi]="false">
-            <mat-expansion-panel style="margin: 5px 0px; " *ngFor="let diaTrabalho of barbeiro.dias_trabalho" hideToggle>
+            <mat-expansion-panel style="margin: 5px 0px; " *ngFor="let diaTrabalho of barbeiro.diasTrabalhados" hideToggle>
               <mat-expansion-panel-header [ngClass]="{'container_success': diaTrabalho.trabalha, 'container_error': !diaTrabalho.trabalha}">
                 <mat-panel-title> 
                   <div class="title_acordion">
-                    <div>{{ dias_semana[diaTrabalho.dia_da_semana.valueOf()] }} </div>
+                    <div>{{ dias_semana[diaTrabalho.diaDaSemana] }} </div>
                     <div>
                       <mat-icon *ngIf="diaTrabalho.trabalha" class="icone-confirmado">done</mat-icon>
                       <mat-icon *ngIf="!diaTrabalho.trabalha" class="icone-nao-confirmado">close</mat-icon>
@@ -29,28 +29,28 @@
               <div style="border-left: 1px solid green;">
                 <div class="container_checkbox">
                   <section class="example-section">
-                    <mat-checkbox [checked]="diaTrabalho.trabalha" color="primary">Trabalha</mat-checkbox>
+                    <mat-checkbox disabled="" [checked]="diaTrabalho.trabalha" color="primary">Trabalha</mat-checkbox>
                   </section>
                 </div>
 
                 <div class="container_input">
                   <mat-form-field class="input_text">
                     <mat-label>Horario Inical</mat-label>
-                    <input matInput [value]="get_format_horario(diaTrabalho.horario_inicial)" disabled>
+                    <input matInput [value]="diaTrabalho.horaInicioDia" disabled>
                   </mat-form-field>
                   <mat-form-field class="input_text">
                     <mat-label>Horario Final</mat-label>
-                    <input matInput [value]="get_format_horario(diaTrabalho.horario_final)" disabled>
+                    <input matInput [value]="diaTrabalho.horaTerminoDia" disabled>
                   </mat-form-field>
                 </div>
                 <div class="container_input">
                   <mat-form-field class="input_text">
                     <mat-label>Horario de Almoço</mat-label>
-                    <input matInput [value]="get_format_horario(diaTrabalho.horario_almoco)" disabled>
+                    <input matInput [value]="diaTrabalho.horaAlmoco" disabled>
                   </mat-form-field>
                   <mat-form-field class="input_text">
                     <mat-label>Tempo de Almoço</mat-label>
-                    <input matInput [value]="diaTrabalho.duracao_almoco"  disabled>
+                    <input matInput [value]="diaTrabalho.tempoAlmoco"  disabled>
                   </mat-form-field>
                 </div>
 
