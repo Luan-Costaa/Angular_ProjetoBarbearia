@@ -54,28 +54,23 @@ export class MinhaContaComponent {
     return horario_formatado
   }
 
-  alterarDiaTrabalho(id_dia: Number | null){
-    alert('teste')
-    //var id_barbeiro = this.barbeiro.id
-//
-    //var dia_trabalho: DiaTrabalho = this.barbeiro.dias_trabalho.filter(
-    //  (dia) => dia.id == id_dia
-    //)[0]
-    //
-    //const dialogRef = this.dialog.open(AlterarDiaTrabalhadoComponent, {
-    //  width: '100vw',
-    //  maxWidth: '430px',
-    //  //height: '100vh',
-    //  maxHeight: '100vh',
-    //  panelClass: 'full-screen-dialog',
-    //  data: [id_barbeiro , dia_trabalho ],
-    //})
-//
-    //// Ouvir o fechamento do diálogo
-    //dialogRef.afterClosed().subscribe(result => {
-//
-    //  this.router.navigate(['/minha-conta']); 
-  //
-    //});
+  alterarDiaTrabalho(dia_trabalho: Observable<any> | null){
+    const dialogRef = this.dialog.open(AlterarDiaTrabalhadoComponent, {
+      width: '100vw',
+      maxWidth: '430px',
+      //height: '100vh',
+      maxHeight: '100vh',
+      panelClass: 'full-screen-dialog',
+      data: dia_trabalho,
+    })
+
+    // Ouvir o fechamento do diálogo
+    dialogRef.afterClosed().subscribe(() => {
+      this.atualizarListaServicos(); // Atualiza os serviços após o fechamento
+    });
+  }
+
+  atualizarListaServicos(): void {
+    this.barbeiro = this.barbeiroService.getBarbeiro(); // Atualiza a lista de serviços
   }
 }

@@ -90,12 +90,19 @@ export class BarbeiroService {
 
   }
 
-  update_dia_trabalhado(id_barbeiro: Number | null, diaTrabalho : DiaTrabalho){
-    for (let trabalho of this.barbeiro.dias_trabalho){
-      if (trabalho.id == diaTrabalho.id){
-        trabalho = diaTrabalho
-      }
-    }
+  update_dia_trabalhado(id_dia_trabalho: Number | null, diaTrabalho : DiaTrabalho){
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.put(this.baseAPIUrl + '/barbeiro/altera-dia-trabalhado/' + id_dia_trabalho, diaTrabalho, { headers })
+      .subscribe({
+        next: (response) => {
+          this.mostrarMensagem('Parametro alterado com sucesso!', 'success');
+        },
+        error: (err) => {
+          const erroMsg = 'Erro ao alterar trabalho: ' + (err.message || 'Erro desconhecido');
+          this.mostrarMensagem(erroMsg, 'error');
+        }
+      });
   }
 
   getServicos(): Observable<any[]> {
@@ -129,7 +136,7 @@ export class BarbeiroService {
 
     this.snackBar.open(msg, 'Fechar', {
       duration: 2000, // duração em ms (3 segundos)
-      horizontalPosition: 'right',
+      horizontalPosition: 'center',
       verticalPosition: 'bottom',
       panelClass: [snackBarClass] // aplica a classe CSS baseada no tipo
     });

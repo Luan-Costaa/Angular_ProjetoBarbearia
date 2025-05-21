@@ -3,6 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Route, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { DiaTrabalho } from 'src/app/domain/dia-trabalho';
 import { BarbeiroService } from 'src/app/services/barbeiro.service';
 
@@ -25,74 +26,47 @@ export class AlterarDiaTrabalhadoComponent {
 
   id_barbeiro: Number | null = null
 
-  diaTrabalho = new DiaTrabalho()
+  diaTrabalho: any;
 
-  horarioInicalFormControl = new FormControl('', [Validators.required]);
-  horarioFinalFormControl = new FormControl('', [Validators.required]);
-  horarioAlmocoFormControl = new FormControl('', [Validators.required]);
-  duracaoAlmocoFormControl = new FormControl('', [Validators.required]);
+  horarioInicalFormControl = new FormControl('', [Validators.required, Validators.pattern(/^\d{2}:\d{2}$/)]);
+  horarioFinalFormControl = new FormControl('', [Validators.required , Validators.pattern(/^\d{2}:\d{2}$/)]);
+  horarioAlmocoFormControl = new FormControl('', [Validators.required, Validators.pattern(/^\d{2}:\d{2}$/)]);
+  duracaoAlmocoFormControl = new FormControl('', [Validators.required, Validators.pattern(/^\d{2}:\d{2}$/)]);
+  trabalhaControl!: FormControl;
+  
 
-  constructor( 
-    @Inject(MAT_DIALOG_DATA) public data: Array<any>,
+  constructor(
+  @Inject(MAT_DIALOG_DATA) public data: Array<any>,
     private barbeiroService: BarbeiroService,
     private dialogRef: MatDialogRef<AlterarDiaTrabalhadoComponent>
-  ){
-    this.id_barbeiro = Number(data[0])
-    this.diaTrabalho = data[1]
+  ) {
+    this.diaTrabalho = data;
 
-    this.horarioInicalFormControl.setValue( this.get_format_horario(this.diaTrabalho.horario_inicial) )
-    this.horarioFinalFormControl.setValue(this.get_format_horario(this.diaTrabalho.horario_final))
-    this.horarioAlmocoFormControl.setValue(this.get_format_horario(this.diaTrabalho.horario_almoco))
-    this.duracaoAlmocoFormControl.setValue(this.convert_to_string(this.diaTrabalho.duracao_almoco))
-  } 
+    this.horarioInicalFormControl.setValue(this.diaTrabalho?.horaInicioDia || '');
+    this.horarioFinalFormControl.setValue(this.diaTrabalho?.horaTerminoDia || '');
+    this.horarioAlmocoFormControl.setValue(this.diaTrabalho?.horaAlmoco || '');
+    this.duracaoAlmocoFormControl.setValue(this.diaTrabalho?.tempoAlmoco || '');
 
-  convert_to_string(valor: Number | null): string{
-    if (valor != null){
-      valor = valor.valueOf()
-    }else{
-      valor = 0
-    }
-
-    return valor.toString()
-  }
-  get_format_horario(horario : Time | null){
-
-    if(horario == null){
-      return ""
-    }
-
-    var horas = horario.hours.toString()
-    var minutos = horario.minutes.toString()
-
-    if (minutos == '0'){
-      minutos = '00'
-    }
-
-    var horario_formatado: string = horas + ":" + minutos 
-
-    return horario_formatado
+    this.trabalhaControl = new FormControl(this.diaTrabalho?.trabalha ?? true);
   }
 
   alterar_dia_trabalho(){
-    this.diaTrabalho.horario_inicial = this.format_time(this.horarioInicalFormControl.value)
-    this.diaTrabalho.horario_final =   this.format_time(this.horarioFinalFormControl.value)
-    this.diaTrabalho.horario_almoco =  this.format_time(this.horarioAlmocoFormControl.value)
-    this.diaTrabalho.duracao_almoco =  Number(this.duracaoAlmocoFormControl.value)
 
-    this.barbeiroService.update_dia_trabalhado(this.id_barbeiro, this.diaTrabalho)
+    var id_dia_trabalho = this.diaTrabalho.id
+   
+    this.diaTrabalho.horaInicioDia = this.horarioInicalFormControl.value
+    this.diaTrabalho.horaTerminoDia =   this.horarioFinalFormControl.value
+    this.diaTrabalho.horaAlmoco =  this.horarioAlmocoFormControl.value
+    this.diaTrabalho.tempoAlmoco =  Number(this.duracaoAlmocoFormControl.value)
+    this.diaTrabalho.trabalha = this.trabalhaControl.value;
+
+    delete this.diaTrabalho.id;
+    delete this.diaTrabalho.diaDaSemana;
+
+    this.barbeiroService.update_dia_trabalhado(id_dia_trabalho, this.diaTrabalho)
 
     this.dialogRef.close();
 
   }
 
-  format_time(horario: string | null) : Time{
-    if (horario == null){
-      horario = "00:00"
-    }
-
-    var horas = Number(horario.split(":")[0])
-    var minutos = Number(horario.split(":")[2])
-
-    return {hours :horas, minutes :minutos}
-  }
 }

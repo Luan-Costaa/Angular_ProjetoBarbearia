@@ -31,7 +31,6 @@ export class CadastrarServicoComponent {
       var servico = JSON.stringify(this.formServico.value, null, 2)
       this.barbeiroService.save_servico(servico)
 
-      // Exemplo: { "nome": "Corte", "valor": 50, "tempo": 30 }
       this.dialogRef.close(this.formServico.value);
     }
   }
