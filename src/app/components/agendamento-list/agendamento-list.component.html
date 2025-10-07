@@ -11,7 +11,9 @@
 <div class="containerInferior" *ngFor="let agendamento of agendamentos | async">
   <mat-card>
     <mat-card-content>
-      <h3>{{format_horario(agendamento.horaAgendamento)}} - {{agendamento.nomeCliente}}</h3>
+      <h3>
+        <mat-icon *ngIf="agendamento.fixo" class="icon-fixo" aria-label="Agendamento fixo">push_pin</mat-icon>
+        {{format_horario(agendamento.horaAgendamento)}} - {{agendamento.nomeCliente}}</h3>
 
       <div>
         <button mat-icon-button [matMenuTriggerFor]="menuSuperior" aria-label="Example icon-button with a menu">

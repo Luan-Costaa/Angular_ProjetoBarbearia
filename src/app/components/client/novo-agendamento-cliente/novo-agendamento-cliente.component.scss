@@ -1,0 +1,132 @@
+.container-radio-button{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-barbeiro{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  height: 50%;
+  padding: 5px;
+}
+
+.container-barbeiro img{
+  margin-bottom: 20px;
+  width: 60%;
+  border: 2px solid rgb(47, 47, 247);
+}
+ul{
+  width: 100%;
+  padding: 0px;
+}
+
+li{
+  width: 100%;
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+mat-card{
+  width: 68vw;
+  padding: 10px;
+  background-color: rgb(253, 250, 250);
+}
+
+.titulo-card-servico{
+  display: flex;
+  align-items: center;
+}
+.titulo-card-servico mat-icon{
+  margin-right: 5px;
+}
+
+.container-info-servicos{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-time-money{
+  margin-top: 10px;
+  display: flex;
+  padding-top: 10px;
+  width: 50%;
+  align-items: center;
+}
+
+.container-time-money mat-icon{
+  margin-right: 5px;
+}
+
+.containerHorario{
+  width: 85vw;;
+  display: flex;
+  justify-content: space-between;
+  align-items: center ;
+}
+
+.containerInputDate{
+  margin-left: 15px;
+  width: 60%;
+}
+
+.containerListHorariosDisponiveis{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.containerDataHoraDisponivel{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.container-info-hora-disponivel{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container-info-hora-disponivel div{
+  padding: 5px;
+  width: 50%;
+}
+
+.container-info-hora-disponivel div span{
+  font-size: 1.2em;
+  margin-top: 3px;
+  padding: 5px;
+}
+
+.containerListHorariosDisponiveis mat-card{
+  padding: 3px 8px;
+  width: 80vw;
+  margin-bottom: 10px;
+  background-color: rgb(191, 245, 191);
+}
+.containerListHorariosDisponiveis mat-card mat-card-content{
+  padding: 8px 5px;
+}
+
+.horaDisponivel{
+  text-align: end;
+  font-size: 2em;
+}
+
+.container-info-lista-fazia{
+  color: darkgrey;
+  width: 100%;
+  text-align: center;
+}
+
+
+.container-input{
+  width: 73vw;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+}

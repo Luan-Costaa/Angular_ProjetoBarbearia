@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Cadastro de Serviço</h2>
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Serviço' : 'Cadastrar Serviço' }}</h2>
+
 <mat-dialog-content>
   <form [formGroup]="formServico" class="form-container">
     <mat-form-field appearance="outline" class="full-width">
@@ -21,6 +22,6 @@
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formServico.invalid">
-    Salvar
+    {{ isEditMode ? 'Atualizar' : 'Salvar' }}
   </button>
 </mat-dialog-actions>

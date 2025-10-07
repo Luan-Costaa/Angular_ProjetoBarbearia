@@ -15,9 +15,12 @@ import { AlterarDiaTrabalhadoComponent } from './components/dialogs/alterar-dia-
 import { CortesFixosComponent } from './components/cortes-fixos/cortes-fixos.component';
 import { IncluirCorteFixoComponent } from './components/dialogs/incluir-corte-fixo/incluir-corte-fixo.component';
 import { ConfirmaAgendamentoComponent } from './components/dialogs/confirma-agendamento/confirma-agendamento.component';
-import { SericosComponent } from './components/sericos/sericos.component';
+import { SericosComponent } from './components/servicos/sericos.component';
 import { CadastrarServicoComponent } from './components/dialogs/cadastrar-servico/cadastrar-servico.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HomeClienteComponent } from './components/client/home-cliente/home-cliente.component';
+import { ConsultaAgendamentoClienteComponent } from './components/client/consulta-agendamento-cliente/consulta-agendamento-cliente.component';
+import { NovoAgendamentoClienteComponent } from './components/client/novo-agendamento-cliente/novo-agendamento-cliente.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ConfirmaAgendamentoComponent,
     SericosComponent,
     CadastrarServicoComponent,
+    HomeClienteComponent,
+    ConsultaAgendamentoClienteComponent,
+    NovoAgendamentoClienteComponent,
   ],
   imports: [
     BrowserModule,

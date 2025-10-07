@@ -76,7 +76,7 @@ export class BarbeiroService {
     return this.http.get<any>(`${this.baseAPIUrl}/barbeiro/7`, { headers });
   }
 
-  get_agendamentos_por_dia_da_semana(): Observable<any[]>{
+  get_agendamentos_por_dia_da_semana(data_for_request: string | null): Observable<any[]>{
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -84,9 +84,17 @@ export class BarbeiroService {
       // 'Authorization': 'Bearer YOUR_TOKEN'
     });
 
-    console.log(this.baseAPIUrl + '/agendamentos')
+    return this.http.get<any[]>(this.baseAPIUrl + "/agendamentos/" + data_for_request, { headers });
 
-    return this.http.get<any[]>(this.baseAPIUrl + "/agendamentos", { headers });
+  }
+
+  get_agendamentos_fixos_por_dia_da_semana(diasDaSemana : number ): Observable<any[]>{
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.get<any[]>(this.baseAPIUrl + "/agendamentos/fixo/" + diasDaSemana, { headers });
 
   }
 
@@ -113,6 +121,21 @@ export class BarbeiroService {
     });
 
     return this.http.get<any[]>(this.baseAPIUrl + '/servico', { headers });
+  }
+
+  alterar_servico(servico: any, id_servico: any){
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.put(this.baseAPIUrl + '/servico/' + id_servico, servico, { headers })
+      .subscribe({
+        next: (response) => {
+          this.mostrarMensagem('Serviço alterado com sucesso!', 'success');
+        },
+        error: (err) => {
+          const erroMsg = 'Erro ao alterar o serviço: ' + (err.message || 'Erro desconhecido');
+          this.mostrarMensagem(erroMsg, 'error');
+        }
+      });
   }
 
   save_servico(servico: any) {
@@ -142,5 +165,23 @@ export class BarbeiroService {
     });
   }
 
+  deletar_servico(id: any) {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  this.http.delete(this.baseAPIUrl + '/servico/' + id, { headers, observe: 'response' })
+    .subscribe({
+      next: (response) => {
+        this.mostrarMensagem('Serviço deletado com sucesso!', 'success');
+      },
+      error: (err) => {
+        let erroMsg = 'Erro ao deletar o serviço.';
+        
+        // Se o back-end retornou ExceptionResponse (JSON)
+        if (err.error && err.error.message) {
+          erroMsg = err.error.message;
+        }
 
+        this.mostrarMensagem(erroMsg, 'error');
+      }
+    });
+  }
 }

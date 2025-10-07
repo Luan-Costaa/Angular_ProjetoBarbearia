@@ -1,0 +1,46 @@
+<div>
+<div class="container_geral">
+  <div class="container_cards">
+    <div *ngFor="let servico of servicos | async" class="card" >
+      <div>
+        
+        <div class="container_header_intern">
+          <h2>{{ servico.nome }}</h2>
+          <button mat-icon-button [matMenuTriggerFor]="menuSuperior" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menuSuperior="matMenu">
+            <button mat-menu-item (click)="abrirCadastroServico(servico)">
+              <mat-icon >edit</mat-icon>
+              <span>Alterar</span>
+            </button>
+            <button mat-menu-item (click)="deletar_servico(servico.id)">
+              <mat-icon  class="icone-cancelar">close</mat-icon>
+              <span>Excluir</span>
+            </button>
+          </mat-menu>
+        </div>
+        </div>
+        
+        <div class="container_detalhes">
+          <div>
+              <div class="label">Tempo</div>
+              {{ servico.tempoServico }} min
+          </div>
+          <div>
+              <div class="label">Valor</div>
+              {{ servico.valor | currency:'BRL' }}
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+    
+
+<button mat-mini-fab color="primary" class="btn_add" (click)="abrirCadastroServico()">
+    <mat-icon>add</mat-icon>
+</button>
+        
+    
+</div>

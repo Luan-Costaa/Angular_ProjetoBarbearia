@@ -16,13 +16,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./cortes-fixos.component.scss']
 })
 export class CortesFixosComponent {
-  dataAgenda: Date = new Date;
   diasDaSemana = [ "Domingo", "Segunda Feira", "Terça feira", "Quarta Feira", "Quinta Feira", "Sexta Feira", "Sabado"]
-  diaSemana: string;
 
-  barebeiro :Observable<any>;
-
-  agendamentos_fixos: Array<AgendamentoFixo>;
+  agendamentos: Observable<any[]> | undefined;
 
   constructor(
     private dateAdapter: DateAdapter<Date>,
@@ -31,30 +27,19 @@ export class CortesFixosComponent {
   ) {
 
     this.dateAdapter.setLocale('pt-BR');
-    this.diaSemana = this.diasDaSemana[this.dataAgenda.getDay()]
-
-    console.log(barbeiroService.build_barbeiro_test())
-
-    this.barebeiro = this.barbeiroService.getBarbeiro()
-
-    this.agendamentos_fixos = [] //this.barebeiro.agendamentos_fixos
-    
-    
   }
 
-  format_time(time: Time | null){
-    if (time != null){
-      let h = time.hours
-      let m = time.minutes
+  ngOnInit(): void {
+    // A lista de serviços será definida aqui quando o componente for carregado
+    this.agendamentos = this.barbeiroService.get_agendamentos_fixos_por_dia_da_semana(0);
+  }
 
-      return h + ':' + m
-    }else{
-      return '00:00'
-    }
+  format_horario(horario: string){
+    return horario.slice(0, 5);
   }
 
   consultar_agendamento_por_data(dia_semana: Number){
-    this.agendamentos_fixos = [] //this.barbeiroService.get_agendamentos_por_dia_da_semana()
+    this.agendamentos = this.barbeiroService.get_agendamentos_fixos_por_dia_da_semana(Number(dia_semana));
   }
 
   openDialog(): void {

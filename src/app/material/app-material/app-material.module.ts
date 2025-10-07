@@ -15,7 +15,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -35,7 +35,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDialogModule,
     MatSelectModule,
     MatStepperModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRadioModule
   ]
   
 })

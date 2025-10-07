@@ -24,10 +24,11 @@ export class SericosComponent {
   }
 
 
-  abrirCadastroServico(): void {
+  abrirCadastroServico(servico?: any): void {
     const dialogRef = this.dialog.open(CadastrarServicoComponent, {
       width: '90%',
-      maxWidth: '600px' // Limite de largura para telas grandes
+      maxWidth: '600px',
+      data: servico ? servico : null
     });
 
     // Quando o diálogo for fechado, atualize a lista de serviços
@@ -38,5 +39,13 @@ export class SericosComponent {
 
   atualizarListaServicos(): void {
     this.servicos = this.barbeiroService.getServicos(); // Atualiza a lista de serviços
+  }
+
+  deletar_servico(id: any){
+    if(confirm("Deseja realmente deletar esse serviço ?")){
+      this.barbeiroService.deletar_servico(id);
+    }
+    this.atualizarListaServicos();
+    
   }
 }
