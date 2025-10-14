@@ -130,3 +130,8 @@ mat-card{
   align-self: center;
   justify-content: center;
 }
+
+.disabled-step {
+  pointer-events: none;  // bloqueia cliques
+  opacity: 0.5;          // deixa visualmente “desabilitado”
+}

@@ -1,4 +1,6 @@
 <mat-stepper orientation="vertical"  #stepper>
+
+  <!-- PASSO 1: Dados do Cliente -->
   <mat-step>
     <ng-template matStepLabel>Insira seus Dados</ng-template>
 
@@ -6,82 +8,91 @@
       <div class="container-input">
         <mat-form-field class="example-full-width">
           <mat-label>Nome</mat-label>
-          <input type="text" matInput maxlength="256" required [formControl]="clienteNomeFormControl" placeholder="Digite seu nome">
+          <input type="text" matInput maxlength="256" required
+            [formControl]="clienteNomeFormControl"
+            placeholder="Digite seu nome">
         </mat-form-field>
-      
+
         <mat-form-field class="example-full-width">
           <mat-label>Telefone</mat-label>
-          <input type="tel" [formControl]="clienteTelefoneFormControl" required matInput placeholder="(00) 0 0000-0000" mask="(00) 0 0000-0000">
+          <input type="tel" [formControl]="clienteTelefoneFormControl" required
+            matInput placeholder="(00) 0 0000-0000" mask="(00) 0 0000-0000">
         </mat-form-field>
       </div>
-    
+
       <div>
-        <button mat-button [disabled]="!formIsValid()" matStepperNext class="btn-proximo">Proximo</button>
+        <button mat-button matStepperNext class="btn-proximo"
+          [disabled]="!formIsValid()">
+          Próximo
+        </button>
       </div>
     </form>
-    
-  </mat-step>
-  
-  <mat-step [editable]="false">
-      <ng-template matStepLabel>Selecione o Barbeiro</ng-template>
-
-      <mat-radio-group class="container-radio-button" [(ngModel)]="idBarbeiro">
-
-        <mat-radio-button *ngFor="let barbeiro of barbeiros| async" [value]="barbeiro.id" >
-          <div class="container-barbeiro">
-            <img [src]="getSrcImgBarbeiro(barbeiro.nome)" class="rounded-circle img-responsive">
-            <p>{{ barbeiro.nome }}</p>
-          </div>
-        </mat-radio-button>
-
-      </mat-radio-group>
-      <div>
-        <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button matStepperNext class="btn-proximo">Proximo</button>
-      </div>
   </mat-step>
 
+  <!-- PASSO 2: Selecionar Barbeiro -->
+  <mat-step [editable]="true">
+    <ng-template matStepLabel>Selecione o Barbeiro</ng-template>
 
-  <mat-step>
+    <mat-radio-group class="container-radio-button" [(ngModel)]="idBarbeiro">
+      <mat-radio-button *ngFor="let barbeiro of barbeiros | async" [value]="barbeiro.id">
+        <div class="container-barbeiro">
+          <img [src]="getSrcImgBarbeiro(barbeiro.nome)" class="rounded-circle img-responsive">
+          <p>{{ barbeiro.nome }}</p>
+        </div>
+      </mat-radio-button>
+    </mat-radio-group>
 
-      <ng-template matStepLabel>Selecione os Serviços</ng-template>
-      <ul  [formGroup]="servicosSelecionados">
-        <li *ngFor="let servico of servicos | async">
-          <mat-checkbox color="primary" [formControlName]="servico.id" name="servico">
-            <mat-card >
-              <mat-card-content class="titulo-card-servico">
-                <mat-icon>content_cut</mat-icon>{{servico.nome}}
-              </mat-card-content>
+    <div>
+      <button mat-button matStepperPrevious>Voltar</button>
+      <button mat-button matStepperNext class="btn-proximo"
+        [disabled]="!idBarbeiro">
+        Próximo
+      </button>
+    </div>
+  </mat-step>
 
-              <div class="container-info-servicos">
-                <div class="container-time-money">
-                  <mat-icon>schedule</mat-icon>
-                  {{servico.tempo}} min
-                </div>
+  <!-- PASSO 3: Selecionar Serviços -->
+  <mat-step [editable]="true">
+    <ng-template matStepLabel>Selecione os Serviços</ng-template>
 
-                <div class="container-time-money">
-                  <mat-icon>attach_money</mat-icon>
-                  {{servico.valor}}
-                </div>
+    <ul [formGroup]="servicosSelecionados">
+      <li *ngFor="let servico of servicos | async">
+        <mat-checkbox color="primary" [formControlName]="servico.id" name="servico">
+          <mat-card>
+            <mat-card-content class="titulo-card-servico">
+              <mat-icon>content_cut</mat-icon>{{servico.nome}}
+            </mat-card-content>
+
+            <div class="container-info-servicos">
+              <div class="container-time-money">
+                <mat-icon>schedule</mat-icon>{{servico.tempo}} min
               </div>
-            </mat-card>
-          </mat-checkbox>
-        </li>
-      </ul>
+              <div class="container-time-money">
+                <mat-icon>attach_money</mat-icon>{{servico.valor}}
+              </div>
+            </div>
+          </mat-card>
+        </mat-checkbox>
+      </li>
+    </ul>
 
-      <div>
-        <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button matStepperNext class="btn-proximo">Proximo</button>
-      </div>
-
+    <div>
+      <button mat-button matStepperPrevious>Voltar</button>
+      <button mat-button matStepperNext class="btn-proximo"
+        [disabled]="filtrarServicosSelecionados().length === 0">
+        Próximo
+      </button>
+    </div>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Selecione o Horario</ng-template>
+
+  <!-- PASSO 4: Selecionar Horário -->
+  <mat-step [editable]="true">
+    <ng-template matStepLabel>Selecione o Horário</ng-template>
 
     <div class="containerHorario">
       <h3>{{diaSemana}}</h3>
       <mat-form-field class="containerInputDate">
-        <input matInput  [matDatepicker]="picker" placeholder="Escolha uma data"
+        <input matInput [matDatepicker]="picker" placeholder="Escolha uma data"
           (dateChange)="listarHorarios($event.value)" [value]="dataAgenda" [min]="hoje">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -90,38 +101,33 @@
 
     <div class="containerListHorariosDisponiveis">
       <div class="container-info-lista-fazia" *ngIf="!(horariosDisponiveis && horariosDisponiveis.length > 0)">
-        Não temos horarios para esse dia.
+        Não temos horários para esse dia.
       </div>
 
-      <mat-card *ngFor="let horario of horariosDisponiveis" (click)="setHorario(horario)">
-        <mat-card-content >
-          Disponivel
+      <mat-card *ngFor="let horario of horariosDisponiveis"
+        (click)="setHorario(horario); confirmarAgendamento()">
+        <mat-card-content>
+          Disponível
           <div class="container-info-hora-disponivel">
-
-            <div  class="containerDataHoraDisponivel">
-              <span>
-                {{diaSemana}}
-              </span>
-              <span>
-                {{dataFormatada}}
-              </span>
+            <div class="containerDataHoraDisponivel">
+              <span>{{diaSemana}}</span>
+              <span>{{dataFormatada}}</span>
             </div>
-  
             <div class="horaDisponivel">
-              {{horario.hora}}
+              {{horario.hora.slice(0,5)}}
             </div>
-  
           </div>
         </mat-card-content>
-        
       </mat-card>
-
-
     </div>
 
     <div>
       <button mat-button matStepperPrevious>Voltar</button>
-      <button mat-button matStepperNext class="btn-proximo">Proximo</button>
+      <button mat-button matStepperNext class="btn-proximo"
+        [disabled]="!horarioSelecionado">
+        Próximo
+      </button>
     </div>
   </mat-step>
+
 </mat-stepper>

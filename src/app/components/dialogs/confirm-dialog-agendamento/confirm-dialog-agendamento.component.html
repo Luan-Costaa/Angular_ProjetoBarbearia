@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Confirmar Agendamento</h2>
+
+<mat-dialog-content>
+  <p><strong>Cliente:</strong> {{ data.nomeCliente }}</p>
+  <p><strong>Telefone:</strong> {{ data.telefoneCliente }}</p>
+  <p><strong>Barbeiro:</strong> {{ data.nomeBarbeiro }}</p>
+  <p><strong>Data:</strong> {{ data.dataAgendamento | date:'dd/MM/yyyy' }}</p>
+  <p><strong>Horário:</strong> {{ data.horario }}</p>
+  <p><strong>Serviços:</strong> {{ data.servicosNomes?.join(', ') }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">Confirmar</button>
+</mat-dialog-actions>

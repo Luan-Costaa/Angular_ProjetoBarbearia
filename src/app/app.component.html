@@ -1,23 +1,4 @@
-<mat-toolbar >
-  <button mat-button [matMenuTriggerFor]="menu" >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="" (click)="alterarTituloToolbar('Homepage')">
-      <mat-icon>home</mat-icon>
-      <span>Homepage</span>
-    </button>
-    <button  routerLink="agendamentos" routerLink="agendamentos"  mat-menu-item (click)="alterarTituloToolbar('Consultar Agendamentos')">
-      <mat-icon color="">calendar_month</mat-icon>
-      <span>Consultar Agendamento</span>
-    </button>
-    <button mat-menu-item routerLink="novo-agendamento" (click)="alterarTituloToolbar('Novo Agendamento')">
-      <mat-icon style="color: green;">add</mat-icon>
-      <span>Novo Agendamento</span>
-    </button>
-  </mat-menu>
-  <span>{{titulo}}</span>
-</mat-toolbar>
+
 
 <mat-toolbar color="primary">
   <button mat-button [matMenuTriggerFor]="menu"  >
@@ -40,11 +21,29 @@
       <mat-icon style="color: blue;">person</mat-icon>
       <span>Meu Perfil</span>
     </button>
-
-
   </mat-menu>
   <span routerLink="/">{{titulo}}</span>
 </mat-toolbar>
 
+<mat-toolbar >
+  <button mat-button [matMenuTriggerFor]="menu_cliente" >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu_cliente="matMenu">
+    <button mat-menu-item routerLink="" (click)="alterarTituloToolbar('Homepage')">
+      <mat-icon>home</mat-icon>
+      <span>Homepage</span>
+    </button>
+    <button  routerLink="consulta-agendamentos" routerLink="consulta-agendamentos"  mat-menu-item (click)="alterarTituloToolbar('Consultar Agendamentos')">
+      <mat-icon color="">calendar_month</mat-icon>
+      <span>Consultar Agendamento</span>
+    </button>
+    <button mat-menu-item routerLink="novo-agendamento" (click)="alterarTituloToolbar('Novo Agendamento')">
+      <mat-icon style="color: green;">add</mat-icon>
+      <span>Novo Agendamento</span>
+    </button>
+  </mat-menu>
+  <span>{{titulo}}</span>
+</mat-toolbar>
 
 <router-outlet></router-outlet>

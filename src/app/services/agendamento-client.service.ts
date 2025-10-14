@@ -34,4 +34,8 @@ export class AgendamentoClientService {
     });
     return this.http.post<any[]>(this.baseAPIUrl + "/agendamentos/horariosdisponiveis/" + idBarbeiro, payload , { headers });
   }
+
+  criarAgendamento(payload: any) {
+    return this.http.post(this.baseAPIUrl + "/agendamentos", payload);
+  }
 }

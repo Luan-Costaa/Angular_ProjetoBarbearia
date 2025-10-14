@@ -21,6 +21,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeClienteComponent } from './components/client/home-cliente/home-cliente.component';
 import { ConsultaAgendamentoClienteComponent } from './components/client/consulta-agendamento-cliente/consulta-agendamento-cliente.component';
 import { NovoAgendamentoClienteComponent } from './components/client/novo-agendamento-cliente/novo-agendamento-cliente.component';
+import { ConfirmDialogAgendamentoComponent } from './components/dialogs/confirm-dialog-agendamento/confirm-dialog-agendamento.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { NovoAgendamentoClienteComponent } from './components/client/novo-agenda
     HomeClienteComponent,
     ConsultaAgendamentoClienteComponent,
     NovoAgendamentoClienteComponent,
+    ConfirmDialogAgendamentoComponent,
   ],
   imports: [
     BrowserModule,
