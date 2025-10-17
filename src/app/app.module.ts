@@ -22,6 +22,8 @@ import { HomeClienteComponent } from './components/client/home-cliente/home-clie
 import { ConsultaAgendamentoClienteComponent } from './components/client/consulta-agendamento-cliente/consulta-agendamento-cliente.component';
 import { NovoAgendamentoClienteComponent } from './components/client/novo-agendamento-cliente/novo-agendamento-cliente.component';
 import { ConfirmDialogAgendamentoComponent } from './components/dialogs/confirm-dialog-agendamento/confirm-dialog-agendamento.component';
+import { LoginComponent } from './components/login/login.component';
+import { provideToastr, ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ConfirmDialogAgendamentoComponent } from './components/dialogs/confirm-
     ConsultaAgendamentoClienteComponent,
     NovoAgendamentoClienteComponent,
     ConfirmDialogAgendamentoComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,10 +51,11 @@ import { ConfirmDialogAgendamentoComponent } from './components/dialogs/confirm-
     NgxMaskDirective,// Diretiva que você pode usar em seu código, mas não é obrigatório
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule  
+    HttpClientModule
   ],
   providers: [
     provideNgxMask(),  // Fornecendo a configuração do ngx-mask
+    provideToastr()
   ],
   bootstrap: [AppComponent]
 })

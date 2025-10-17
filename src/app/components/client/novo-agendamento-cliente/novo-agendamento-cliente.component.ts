@@ -129,7 +129,7 @@ export class NovoAgendamentoClienteComponent {
     return ids;
   }
 
-  /** ✅ Ao alterar a data, monta JSON e busca horários disponíveis */
+  /** Ao alterar a data, monta JSON e busca horários disponíveis */
   listarHorarios(data: Date): void {
     if (this.filtrarServicosSelecionados().length > 0){
       this.flag_servicosSelecionados =  true
@@ -172,21 +172,21 @@ export class NovoAgendamentoClienteComponent {
           Swal.fire({
               icon: 'error',
               title: 'Erro ao agendar',
-              text: '❌ Selecione no minimo um serviço!',
+              text: 'Selecione no minimo um serviço!',
               showConfirmButton: true
             });
         }else if (!this.flag_barbeiroSelecionado){
           Swal.fire({
               icon: 'error',
               title: 'Erro ao agendar',
-              text: '❌ Selecione o Barbeiro!',
+              text: 'Selecione o Barbeiro!',
               showConfirmButton: true
             });
         }else{
           Swal.fire({
               icon: 'error',
               title: 'Erro ao agendar',
-              text: '❌ Informe seu nome e telefone!',
+              text: 'Informe seu nome e telefone!',
               showConfirmButton: true
             });
         }

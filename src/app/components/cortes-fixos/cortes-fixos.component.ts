@@ -9,6 +9,7 @@ import { IncluirCorteFixoComponent } from '../dialogs/incluir-corte-fixo/incluir
 import { MatDialog } from '@angular/material/dialog';
 import { Horario } from 'src/app/domain/horario';
 import { Observable } from 'rxjs';
+import { AgendamentoClientService } from 'src/app/services/agendamento-client.service';
 
 @Component({
   selector: 'app-cortes-fixos',
@@ -24,6 +25,7 @@ export class CortesFixosComponent {
     private dateAdapter: DateAdapter<Date>,
     private barbeiroService: BarbeiroService,
     private dialog: MatDialog,
+    private agendamentoClientService : AgendamentoClientService
   ) {
 
     this.dateAdapter.setLocale('pt-BR');
@@ -67,4 +69,9 @@ export class CortesFixosComponent {
       console.log(".")
     });
   }
+
+  excluirAgendamento(idAgendamento: any){
+    this.agendamentoClientService.excluirAgendamento(idAgendamento)
+  }
+
 }

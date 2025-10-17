@@ -20,15 +20,11 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menuSuperior="matMenu">
-          <button mat-menu-item>
-            <mat-icon  class="icone-confirmar">done</mat-icon>
-            <span>Concluir</span>
+          <button mat-menu-item *ngIf="!agendamento.fixo" (click)="tornarAgendamentoFixo(agendamento.id)">
+            <mat-icon  class="icon-fixo">push_pin</mat-icon>
+            <span>Tornar Corte Fixo</span>
           </button>
-          <button mat-menu-item>
-            <mat-icon class="icone-agendar">calendar_month</mat-icon>
-            <span>Reagendar</span>
-          </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="excluirAgendamento(agendamento.id)">
             <mat-icon  class="icone-cancelar">close</mat-icon>
             <span>Cancelar</span>
           </button>

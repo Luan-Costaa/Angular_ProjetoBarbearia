@@ -1,3 +1,4 @@
+import { AgendamentoClientService } from 'src/app/services/agendamento-client.service';
 import { DatePipe } from '@angular/common';
 import { ThisReceiver } from '@angular/compiler';
 import { Component } from '@angular/core';
@@ -10,7 +11,7 @@ import { BarbeiroService } from 'src/app/services/barbeiro.service';
   selector: 'app-agendamento-list',
   templateUrl: './agendamento-list.component.html',
   styleUrls: ['./agendamento-list.component.scss'],
-  providers: [DatePipe] 
+  providers: [DatePipe]
 })
 export class AgendamentoListComponent {
   dataAgenda: Date = new Date;
@@ -24,6 +25,7 @@ export class AgendamentoListComponent {
   constructor(
     private dateAdapter: DateAdapter<Date>,
     private barbeiroService: BarbeiroService,
+    private agendamentoClientService: AgendamentoClientService,
     private datePipe: DatePipe
   ) {
 
@@ -33,11 +35,11 @@ export class AgendamentoListComponent {
 
   ngOnInit(): void {
     let data_for_request = this.datePipe.transform(this.dataAgenda, 'yyyy-MM-dd')
-   
+
     this.agendamentos = this.barbeiroService.get_agendamentos_por_dia_da_semana(data_for_request);
   }
 
-  updateDayOfWeek(data: Date) {   
+  updateDayOfWeek(data: Date) {
     this.dataAgenda = data;
     this.diaSemana = this.diasDaSemana[this.dataAgenda.getDay()];
 
@@ -51,5 +53,13 @@ export class AgendamentoListComponent {
     return horario.slice(0, 5);
   }
 
-  
+  tornarAgendamentoFixo(idAgendamento: any){
+    this.agendamentoClientService.tonarAgendamentoFixo(idAgendamento)
+  }
+
+  excluirAgendamento(idAgendamento: any){
+    this.agendamentoClientService.excluirAgendamento(idAgendamento)
+  }
+
+
 }

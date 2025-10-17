@@ -5,19 +5,19 @@
     justify-content: space-around;
     align-items: center ;
   }
-  
+
   .containerInputDate{
     margin-left: 15px;
     min-width: 170px;
     padding: 5px 10px 0px 0px;
   }
-  
+
   .containerSuperior h2{
     min-width: 40%;
     text-align: center;
     padding: 2px;
   }
-  
+
   mat-card-content h3{
     font-weight: 600;
   }
@@ -32,43 +32,49 @@
     justify-content: start;
     margin-top: 3px;
    }
-  
+
   .containerInfoCardAgendamento .containerListServiosAgendados div span{
     margin-left: 3px;
   }
-  
+
   .containerInfoCardAgendamento .containerListServiosAgendados div mat-icon{
     font-size: large;
   }
-  
+
   .container-info{
     width: 60%;
     display: flex;
     justify-content: space-between;
   }
-  
+
   .time-money div{
     display: flex;
     align-items: center;
-  
+
   }
-  
+
+ .containerInferior{
+    padding: 10px;
+  }
+
   mat-card{
-    background-color: rgb(247, 244, 244);
+    //background-color: rgb(247, 244, 244);
+    border-left: 5px solid blue;
     margin-bottom: 10px;
   }
-  
+
+
   mat-card-content{
     display: flex;
     justify-content: space-between;
   }
-  
-  
+
+
   mat-card-content div{
     margin-top: -8px;
-  
+
   }
-  
+
   .icone-agendar{
     color: rgb(9, 9, 247);
   }
@@ -83,7 +89,7 @@
     font-size: 16px;
     text-align: center;
   }
-  
+
   .icon-fixo {
     color: orange; /* Amarelo ouro */
     font-size: 18px; /* Ajusta tamanho do ícone conforme necessário */

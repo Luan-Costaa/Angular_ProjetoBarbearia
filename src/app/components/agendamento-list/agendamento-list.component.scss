@@ -21,11 +21,24 @@
 mat-card-content h3{
   font-weight: 600;
 }
+
+.containerInferior{
+  padding: 10px;
+}
+
+mat-card{
+  //background-color: rgb(247, 244, 244);
+  border-left: 5px solid blue;
+  margin-bottom: 10px;
+}
+
+
 .containerInfoCardAgendamento{
   padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 .containerInfoCardAgendamento .containerListServiosAgendados div{
   display: flex;
@@ -53,10 +66,7 @@ mat-card-content h3{
 
 }
 
-mat-card{
-  background-color: rgb(247, 244, 244);
-  margin-bottom: 10px;
-}
+
 
 mat-card-content{
   display: flex;

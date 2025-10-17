@@ -6,6 +6,8 @@ import { Servico } from '../domain/servico';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,63 +15,18 @@ import { Observable } from 'rxjs';
 export class BarbeiroService {
 
   constructor(private http: HttpClient,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
   baseAPIUrl = "http://localhost:8080";
+  token = localStorage.getItem('token');
 
-  barbeiro = new Barbeiro()
-  servicos:  Array<Servico> = []
-  is_created = false
-
-  build_barbeiro_test(){
-
-    if (!this.is_created){
-      let barbeiro = new Barbeiro()
-
-      var servicos :Array<Servico> = [
-        {id: "1", nome:"Corte", tempo: "30", valor: "35"},
-        {id: "1", nome:"Barba", tempo: "20", valor: "20"}
-      ]
-      
-      let agenda_fixa: Array<AgendamentoFixo> = [
-        {id: null,dia_da_semana:2,tel_cliente: "11 93591-1872",horario: {hours :15, minutes :30},nome_cliente: "Luan Costa",servicos : servicos, tempo: 50,total: 55},
-        {id: null,dia_da_semana:2,tel_cliente: "11 93591-1872",horario: {hours :10, minutes :30},nome_cliente: "Alexandre",servicos : servicos, tempo: 50,total: 55},
-        {id: null,dia_da_semana:3,tel_cliente: "11 93591-1872",horario: {hours :18, minutes :30},nome_cliente: "Luan Costa",servicos : servicos, tempo: 50,total: 55},
-      ]
-  
-
-
-      let dias_trabalho: Array<DiaTrabalho> = [
-        {id: 1, dia_da_semana: 0,trabalha: false, horario_inicial:{hours:8, minutes :0}, duracao_almoco: 30, horario_almoco : {hours :13, minutes:0},horario_final: {hours :18, minutes :0}},
-        {id: 2, dia_da_semana: 1,trabalha: true, horario_inicial: {hours :8, minutes :0}, duracao_almoco: 30, horario_almoco : {hours :13, minutes:0},horario_final: {hours :18, minutes :0}},
-        {id: 3, dia_da_semana: 2,trabalha: true, horario_inicial: {hours :8, minutes :0}, duracao_almoco: 30, horario_almoco : {hours :13, minutes:0},horario_final: {hours :18, minutes :0}},
-        {id: 4, dia_da_semana: 3,trabalha: true, horario_inicial: {hours :8, minutes :0}, duracao_almoco: 30, horario_almoco : {hours :13, minutes:0},horario_final: {hours :18, minutes :0}},
-        {id: 5, dia_da_semana: 4,trabalha: true, horario_inicial: {hours :8, minutes :0}, duracao_almoco: 30, horario_almoco : {hours :13, minutes:0},horario_final: {hours :18, minutes :0}},
-        {id: 6, dia_da_semana: 5,trabalha: true, horario_inicial: {hours :8, minutes :0}, duracao_almoco: 30, horario_almoco : {hours :13, minutes:0},horario_final: {hours :18, minutes :0}},
-        {id: 7, dia_da_semana: 6,trabalha: true, horario_inicial: {hours :8, minutes :0}, duracao_almoco: 30, horario_almoco : {hours :13, minutes:0},horario_final: {hours :18, minutes :0}},
-
-      ]
-
-
-      barbeiro.id = 1
-      barbeiro.nome = "Ademilson"
-      barbeiro.email = "ademilson@gmail.com"
-      barbeiro.agendamentos_fixos = agenda_fixa
-      barbeiro.dias_trabalho = dias_trabalho
-      
-
-      this.barbeiro = barbeiro
-      this.is_created = true
-    }
-
-    
-  }
-
-  
 
   getBarbeiro(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+
       // 'Authorization': 'Bearer YOUR_TOKEN' // se necessário
     });
 
@@ -80,8 +37,8 @@ export class BarbeiroService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      // Se necessário, adicione cabeçalhos adicionais, como autenticação
-      // 'Authorization': 'Bearer YOUR_TOKEN'
+      'Authorization': `Bearer ${this.token}`
+
     });
 
     return this.http.get<any[]>(this.baseAPIUrl + "/agendamentos/" + data_for_request, { headers });
@@ -92,6 +49,8 @@ export class BarbeiroService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+
     });
 
     return this.http.get<any[]>(this.baseAPIUrl + "/agendamentos/fixo/" + diasDaSemana, { headers });
@@ -116,6 +75,8 @@ export class BarbeiroService {
   getServicos(): Observable<any[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+
       // Se necessário, adicione cabeçalhos adicionais, como autenticação
       // 'Authorization': 'Bearer YOUR_TOKEN'
     });
@@ -153,7 +114,7 @@ export class BarbeiroService {
       });
   }
 
-  
+
   mostrarMensagem(msg: string, type: string) {
     const snackBarClass = type === 'success' ? 'snack-bar-success' : 'snack-bar-error';
 
@@ -170,17 +131,29 @@ export class BarbeiroService {
   this.http.delete(this.baseAPIUrl + '/servico/' + id, { headers, observe: 'response' })
     .subscribe({
       next: (response) => {
-        this.mostrarMensagem('Serviço deletado com sucesso!', 'success');
+        Swal.fire({
+          icon: 'success',
+          title: 'Agendamento realizado!',
+          text: '✅ Seu agendamento foi confirmado com sucesso.',
+          timer: 2000,
+          showConfirmButton: false
+        })
       },
       error: (err) => {
         let erroMsg = 'Erro ao deletar o serviço.';
-        
+
         // Se o back-end retornou ExceptionResponse (JSON)
         if (err.error && err.error.message) {
           erroMsg = err.error.message;
         }
 
-        this.mostrarMensagem(erroMsg, 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao alterar serviço',
+          text: 'Tente novamente mais tarde',
+          timer: 2000,
+          showConfirmButton: false
+        })
       }
     });
   }

@@ -8,13 +8,13 @@
     </mat-select>
   </mat-form-field>
 </div>
-  
+
   <div class="containerInferior" *ngFor="let agendamento of agendamentos | async">
   <mat-card>
     <mat-card-content>
       <h3>
         <mat-icon *ngIf="agendamento.fixo" class="icon-fixo" aria-label="Agendamento fixo">push_pin</mat-icon>
-        
+
         {{format_horario(agendamento.horaAgendamento)}} - {{agendamento.nomeCliente}}</h3>
 
       <div>
@@ -22,13 +22,9 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menuSuperior="matMenu">
-          <button mat-menu-item>
-            <mat-icon class="icone-agendar">calendar_month</mat-icon>
-            <span>Reagendar</span>
-          </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="excluirAgendamento(agendamento.id)">
             <mat-icon  class="icone-cancelar">close</mat-icon>
-            <span>Cancelar</span>
+            <span>Excluir</span>
           </button>
         </mat-menu>
       </div>
