@@ -5,7 +5,7 @@ import { DiaTrabalho } from '../domain/dia-trabalho';
 import { Servico } from '../domain/servico';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -23,14 +23,14 @@ export class BarbeiroService {
 
 
   getBarbeiro(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.token}`
+  const savedUser = localStorage.getItem('userInfo');
 
-      // 'Authorization': 'Bearer YOUR_TOKEN' // se necessário
-    });
-
-    return this.http.get<any>(`${this.baseAPIUrl}/barbeiro/7`, { headers });
+  if (savedUser) {
+      const userObject = JSON.parse(savedUser);
+      return of(userObject); // transforma o objeto em Observable
+    } else {
+      return of(null); // retorna Observable vazio
+    }
   }
 
   get_agendamentos_por_dia_da_semana(data_for_request: string | null): Observable<any[]>{
@@ -58,7 +58,10 @@ export class BarbeiroService {
   }
 
   update_dia_trabalhado(id_dia_trabalho: Number | null, diaTrabalho : DiaTrabalho){
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders(
+      { 'Content-Type': 'application/json' ,
+        'Authorization': `Bearer ${this.token}`
+      });
 
     this.http.put(this.baseAPIUrl + '/barbeiro/altera-dia-trabalhado/' + id_dia_trabalho, diaTrabalho, { headers })
       .subscribe({
@@ -75,7 +78,7 @@ export class BarbeiroService {
   getServicos(): Observable<any[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.token}`
+      //'Authorization': `Bearer ${this.token}`
 
       // Se necessário, adicione cabeçalhos adicionais, como autenticação
       // 'Authorization': 'Bearer YOUR_TOKEN'
@@ -85,7 +88,10 @@ export class BarbeiroService {
   }
 
   alterar_servico(servico: any, id_servico: any){
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders(
+      { 'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`}
+    );
 
     this.http.put(this.baseAPIUrl + '/servico/' + id_servico, servico, { headers })
       .subscribe({
@@ -100,7 +106,11 @@ export class BarbeiroService {
   }
 
   save_servico(servico: any) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders(
+      { 'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`
+      }
+    );
 
     this.http.post(this.baseAPIUrl + '/servico', servico, { headers })
       .subscribe({
@@ -127,7 +137,11 @@ export class BarbeiroService {
   }
 
   deletar_servico(id: any) {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  const headers = new HttpHeaders(
+    { 'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${this.token}`
+
+    });
   this.http.delete(this.baseAPIUrl + '/servico/' + id, { headers, observe: 'response' })
     .subscribe({
       next: (response) => {
