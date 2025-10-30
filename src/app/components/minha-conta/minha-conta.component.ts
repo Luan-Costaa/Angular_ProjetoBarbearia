@@ -32,7 +32,7 @@ export class MinhaContaComponent {
     private dialog: MatDialog,
     private router: Router
   ) {
-    this.barbeiro = this.barbeiroService.getBarbeiro();
+    this.barbeiro = this.barbeiroService.get_dados_minha_conta();
   }
 
 
@@ -49,7 +49,7 @@ export class MinhaContaComponent {
       minutos = '00'
     }
 
-    var horario_formatado: string = horas + ":" + minutos 
+    var horario_formatado: string = horas + ":" + minutos
 
     return horario_formatado
   }
@@ -71,6 +71,6 @@ export class MinhaContaComponent {
   }
 
   atualizarListaServicos(): void {
-    this.barbeiro = this.barbeiroService.getBarbeiro(); // Atualiza a lista de serviços
+    this.barbeiro = this.barbeiroService.get_dados_minha_conta(); // Atualiza a lista de serviços
   }
 }

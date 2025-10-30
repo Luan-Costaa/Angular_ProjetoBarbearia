@@ -5,45 +5,60 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button  routerLink="agendamentos" mat-menu-item (click)="alterarTituloToolbar('Agendamento')">
+    <div *ngIf="isLoggedIn() && (barbeiro | async) as barbeiro">
+      <!-- conteúdo aqui -->
+      <p>Bem-vindo, {{ barbeiro.nome }}</p>
+    </div>
+
+    <button *ngIf="isLoggedIn()" routerLink="agendamentos" mat-menu-item (click)="alterarTituloToolbar('Agendamento')">
       <mat-icon style="color: blue;">calendar_month</mat-icon>
       <span>Agenda</span>
-    </button>
-    <button routerLink="servicos" mat-menu-item (click)="alterarTituloToolbar('Servicos')">
+    </button >
+
+    <button *ngIf="isLoggedIn()" routerLink="servicos" mat-menu-item (click)="alterarTituloToolbar('Servicos')">
       <mat-icon>content_cut</mat-icon>
       <span>Servicos</span>
     </button>
-    <button routerLink="cortes-fixos" mat-menu-item (click)="alterarTituloToolbar('Cortes Fixos')">
+
+    <button *ngIf="isLoggedIn()"  routerLink="cortes-fixos" mat-menu-item (click)="alterarTituloToolbar('Cortes Fixos')">
       <mat-icon style="color: green;">event_available</mat-icon>
       <span >Cortes Fixos</span>
     </button>
-    <button mat-menu-item  routerLink="minha-conta" (click)="alterarTituloToolbar('Meu Perfil')">
+
+    <button *ngIf="isLoggedIn()"  mat-menu-item  routerLink="minha-conta" (click)="alterarTituloToolbar('Meu Perfil')">
       <mat-icon style="color: blue;">person</mat-icon>
       <span>Meu Perfil</span>
     </button>
-  </mat-menu>
-  <span routerLink="/">{{titulo}}</span>
-</mat-toolbar>
 
-<mat-toolbar >
-  <button mat-button [matMenuTriggerFor]="menu_cliente" >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <mat-menu #menu_cliente="matMenu">
     <button mat-menu-item routerLink="" (click)="alterarTituloToolbar('Homepage')">
       <mat-icon>home</mat-icon>
       <span>Homepage</span>
     </button>
+
     <button  routerLink="consulta-agendamentos" routerLink="consulta-agendamentos"  mat-menu-item (click)="alterarTituloToolbar('Consultar Agendamentos')">
       <mat-icon color="">calendar_month</mat-icon>
       <span>Consultar Agendamento</span>
     </button>
+
     <button mat-menu-item routerLink="novo-agendamento" (click)="alterarTituloToolbar('Novo Agendamento')">
       <mat-icon style="color: green;">add</mat-icon>
       <span>Novo Agendamento</span>
     </button>
+
+    <button *ngIf="!isLoggedIn()"  mat-menu-item routerLink="login" (click)="alterarTituloToolbar('Login')">
+      <mat-icon style="color: green;">login</mat-icon>
+      <span>Login</span>
+    </button>
+
+    <button *ngIf="isLoggedIn()"  mat-menu-item routerLink="login" (click)="logout()">
+      <mat-icon style="color: red;">logout</mat-icon>
+      <span>Sair</span>
+    </button>
+
+
   </mat-menu>
-  <span>{{titulo}}</span>
+  <span routerLink="/">{{titulo}}</span>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
+

@@ -35,7 +35,6 @@ export class UserService {
 
   get_info_user(username: string) {
     const token = localStorage.getItem('token'); // pega o token
-    console.log(token)
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`

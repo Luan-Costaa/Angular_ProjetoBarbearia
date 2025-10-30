@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'; // Importação correta do ngx-mask
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppMaterialModule } from './material/app-material/app-material.module';
@@ -55,7 +59,12 @@ import { provideToastr, ToastrModule } from 'ngx-toastr';
   ],
   providers: [
     provideNgxMask(),  // Fornecendo a configuração do ngx-mask
-    provideToastr()
+    provideToastr(),
+    //{
+    //  provide: HTTP_INTERCEPTORS,
+    //  useClass: AuthInterceptor,
+    //  multi: true
+    //}
   ],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,7 @@ export class AgendamentoClientService {
     private snackBar: MatSnackBar
   ) { }
   baseAPIUrl = "http://localhost:8080";
+  token = localStorage.getItem('token');
 
 
   get_barbeiros_list( ): Observable<any[]>{
@@ -39,9 +40,12 @@ export class AgendamentoClientService {
   criarAgendamento(payload: any) {
     return this.http.post(this.baseAPIUrl + "/agendamentos", payload);
   }
-    tonarAgendamentoFixo(id: any) {
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      this.http.put(this.baseAPIUrl + '/agendamentos/tornar-fixo/' + id, { headers, observe: 'response' })
+  tonarAgendamentoFixo(id: any) {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`  // crase para interpolar
+      });
+      this.http.put(this.baseAPIUrl + '/agendamentos/tornar-fixo/' + id, null, { headers, observe: 'response' })
         .subscribe({
           next: (response) => {
             Swal.fire({
@@ -72,8 +76,13 @@ export class AgendamentoClientService {
     }
 
     excluirAgendamento(id: any) {
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      this.http.put(this.baseAPIUrl + '/agendamentos/cancelar/' + id, { headers, observe: 'response' })
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`  // crase para interpolar
+      });
+
+      this.http.put(this.baseAPIUrl + '/agendamentos/cancelar/' + id, null, { headers, observe: 'response' })
+      //this.http.put(this.baseAPIUrl + '/agendamentos/cancelar/' + id, { headers })
         .subscribe({
           next: (response) => {
             Swal.fire({

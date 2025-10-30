@@ -23,11 +23,14 @@ export class BarbeiroService {
 
 
   getBarbeiro(): Observable<any> {
+
   const savedUser = localStorage.getItem('userInfo');
 
   if (savedUser) {
       const userObject = JSON.parse(savedUser);
-      return of(userObject); // transforma o objeto em Observable
+
+      console.log(userObject)
+      return userObject; // transforma o objeto em Observable
     } else {
       return of(null); // retorna Observable vazio
     }
@@ -66,11 +69,22 @@ export class BarbeiroService {
     this.http.put(this.baseAPIUrl + '/barbeiro/altera-dia-trabalhado/' + id_dia_trabalho, diaTrabalho, { headers })
       .subscribe({
         next: (response) => {
-          this.mostrarMensagem('Parametro alterado com sucesso!', 'success');
+          Swal.fire({
+              icon: 'success',
+              title: 'Sucesso!',
+              text: '✅ Parametro alterado com sucesso!',
+              timer: 2000,
+              showConfirmButton: false
+            })
         },
         error: (err) => {
-          const erroMsg = 'Erro ao alterar trabalho: ' + (err.message || 'Erro desconhecido');
-          this.mostrarMensagem(erroMsg, 'error');
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao alterar dia Trabalhado',
+            text:  (err.message || 'Erro desconhecido'),
+            timer: 2000,
+            showConfirmButton: false
+          })
         }
       });
   }
@@ -96,11 +110,22 @@ export class BarbeiroService {
     this.http.put(this.baseAPIUrl + '/servico/' + id_servico, servico, { headers })
       .subscribe({
         next: (response) => {
-          this.mostrarMensagem('Serviço alterado com sucesso!', 'success');
+          Swal.fire({
+              icon: 'success',
+              title: 'Serviço alterado!',
+              text: '✅ Serviço alterado com sucesso!',
+              timer: 2000,
+              showConfirmButton: false
+            })
         },
         error: (err) => {
-          const erroMsg = 'Erro ao alterar o serviço: ' + (err.message || 'Erro desconhecido');
-          this.mostrarMensagem(erroMsg, 'error');
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao alterar serviço!',
+            text:  (err.message || 'Erro desconhecido'),
+            timer: 2000,
+            showConfirmButton: false
+          })
         }
       });
   }
@@ -115,30 +140,29 @@ export class BarbeiroService {
     this.http.post(this.baseAPIUrl + '/servico', servico, { headers })
       .subscribe({
         next: (response) => {
-          this.mostrarMensagem('Serviço salvo com sucesso!', 'success');
+          Swal.fire({
+              icon: 'success',
+              title: 'Serviço salvo!',
+              text: '✅ Serviço salvo com sucesso!',
+              timer: 2000,
+              showConfirmButton: false
+            })
         },
         error: (err) => {
-          const erroMsg = 'Erro ao salvar o serviço: ' + (err.message || 'Erro desconhecido');
-          this.mostrarMensagem(erroMsg, 'error');
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao salvar serviço!',
+            text:  (err.message || 'Erro desconhecido'),
+            timer: 2000,
+            showConfirmButton: false
+          })
         }
       });
   }
 
-
-  mostrarMensagem(msg: string, type: string) {
-    const snackBarClass = type === 'success' ? 'snack-bar-success' : 'snack-bar-error';
-
-    this.snackBar.open(msg, 'Fechar', {
-      duration: 2000, // duração em ms (3 segundos)
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-      panelClass: [snackBarClass] // aplica a classe CSS baseada no tipo
-    });
-  }
-
   deletar_servico(id: any) {
   const headers = new HttpHeaders(
-    { 'Content-Type': 'application/json', 
+    { 'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token}`
 
     });
@@ -170,5 +194,16 @@ export class BarbeiroService {
         })
       }
     });
+  }
+
+  get_dados_minha_conta(): Observable<any[]>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+
+    });
+
+    return this.http.get<any[]>(this.baseAPIUrl + "/barbeiro/info-user-logado", { headers });
+
   }
 }

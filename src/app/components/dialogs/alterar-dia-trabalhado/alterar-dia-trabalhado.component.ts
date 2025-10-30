@@ -33,7 +33,7 @@ export class AlterarDiaTrabalhadoComponent {
   horarioAlmocoFormControl = new FormControl('', [Validators.required, Validators.pattern(/^\d{2}:\d{2}$/)]);
   duracaoAlmocoFormControl = new FormControl('', [Validators.required, Validators.pattern(/^\d{2}:\d{2}$/)]);
   trabalhaControl!: FormControl;
-  
+
 
   constructor(
   @Inject(MAT_DIALOG_DATA) public data: Array<any>,
@@ -53,7 +53,7 @@ export class AlterarDiaTrabalhadoComponent {
   alterar_dia_trabalho(){
 
     var id_dia_trabalho = this.diaTrabalho.id
-   
+
     this.diaTrabalho.horaInicioDia = this.horarioInicalFormControl.value
     this.diaTrabalho.horaTerminoDia =   this.horarioFinalFormControl.value
     this.diaTrabalho.horaAlmoco =  this.horarioAlmocoFormControl.value
@@ -62,6 +62,10 @@ export class AlterarDiaTrabalhadoComponent {
 
     delete this.diaTrabalho.id;
     delete this.diaTrabalho.diaDaSemana;
+
+    console.log("ID = " +  id_dia_trabalho)
+
+    console.log(this.diaTrabalho)
 
     this.barbeiroService.update_dia_trabalhado(id_dia_trabalho, this.diaTrabalho)
 

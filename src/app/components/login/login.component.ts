@@ -39,21 +39,7 @@ export class LoginComponent {
     this.authService.login(username, password).subscribe({
       next: (response: any) => {
         localStorage.setItem('token', response.AccessToken);
-
-        this.userService.get_info_user(username).subscribe(
-          (userInfo) => {
-            // 🔥 Atualiza userService (já salva no localStorage e dispara para o Header)
-            this.userService.setUser(userInfo);
-
-            // this.toastr.success('Login realizado com sucesso!');
-            this.router.navigate(['/agendamentos']);
-          },
-          (error) => {
-            localStorage.removeItem('token');
-            this.toastr.error('Erro ao obter informações do usuário', 'Algo deu errado!');
-            this.loading = false;
-          }
-        );
+        location.assign("agendamentos")
       },
       error: (error) => {
         this.toastr.error('Usuário ou senha incorretos', 'Algo deu errado!');
